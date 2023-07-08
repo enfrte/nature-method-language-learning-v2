@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB Insert</title>
+</head>
+<body>
+
+<form method="POST" action="sentencesController.php">
+	<p><input type="submit" value="Submit"></p>
+    
+	<label for="locale">Language</label>
+	<select name="locale" id="locale">
+		<option value="en" default>English</option>
+	</select>
+
+	<p>
+		<label for="chapter_number">Chapter </label>
+		<input id="chapter_number" min="1" max="100" name="chapter_number" type="number" required>
+	</p>
+	
+	<p>
+		<label for="page_number">Page </label>
+		<input id="page_number" min="1" max="1000" name="page_number" type="number" required>
+	</p>
+	
+	<div style="display:flex;">
+	<div style="width:50%;margin-right:10px;">
+		<label for="sentences">Sentences </label>
+		<textarea id="sentences" name="sentences" style="width:100%;height:600px;" 
+			placeholder="Paste text here. Each sentence should have it's own line." required></textarea>	
+	</div>
+	
+	<div style="width:50%;margin-right:10px;">
+		<label for="aside">Aside</label>
+		<textarea id="aside" name="aside" style="width:100%;height:600px;" 
+			placeholder="Paste aside text here. Each aside should have it's own line."></textarea>
+	</div>
+	</div>
+</form>
+
+<script>
+
+	if (localStorage.chapter_number) { // set from localstore
+		document.getElementById("chapter_number").value = localStorage.chapter_number;		
+	} else { // default
+		localStorage.setItem("chapter_number", 1);
+	}
+
+	if (localStorage.page_number) {
+		document.getElementById("page_number").value = localStorage.page_number;		
+	} else {
+		localStorage.setItem("page_number", 1);
+	}
+
+	document.getElementById("chapter_number").addEventListener( 'change', (el) => {
+		localStorage.setItem("chapter_number", el.target.value);
+	} );
+
+	document.getElementById("page_number").addEventListener( 'change', (el) => {
+		localStorage.setItem("page_number", el.target.value);
+	} );
+
+</script>
+
+</body>
+</html>
